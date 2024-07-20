@@ -4,16 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
 
 class MainViewModel(private val savedStateHandle: SavedStateHandle): ViewModel(){
-    private var _test = MutableLiveData<Int>()
+    private var _test = MutableLiveData(0)
     val test: LiveData<Int> = _test
 
-    val filteredData:MutableLiveData<String> =
-        savedStateHandle.getLiveData("query")
+    init {
+        savedStateHandle.get<Int>("count")?.let {
+            initCount(it)
+        }
+    }
 
-    fun setQuery(){
-        savedStateHandle["query"] = "탈모쥐"
+    private fun initCount(it:Int){
+        _test.value = it
+    }
+
+    fun countUp(){
+        _test.value = _test.value!! +1
+        savedStateHandle["count"] = _test.value
     }
 }

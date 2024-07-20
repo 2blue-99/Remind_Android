@@ -1,9 +1,7 @@
 package com.blue.remind_project
 
-import android.app.Application.ActivityLifecycleCallbacks
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.blue.remind_project.databinding.ActivityMainBinding
 
@@ -15,16 +13,18 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.test.text = "Pureum"
-        viewModel.filteredData.observe(this){
-            binding.test.text = it ?: "값 비었어용"
+
+//        viewModel.filteredData.observe(this){
+//            binding.test.text = it.toString()
+//        }
+        viewModel._test.observe(this){
+            binding.test.text = it.toString()
         }
         binding.button.setOnClickListener {
-            viewModel.setQuery()
+            viewModel.countUp()
         }
         setContentView(binding.root)
     }
