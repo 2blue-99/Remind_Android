@@ -10,46 +10,26 @@ import com.blue.remind_project.databinding.FragmentFirstBinding
 import com.blue.remind_project.viewModel.FirstViewModel
 
 
-class FirstFragment : Fragment() {
+class FirstFragment : BaseFragment<FragmentFirstBinding>(FragmentFirstBinding::inflate, "FirstFragment") {
 
-    private var _binding: FragmentFirstBinding? = null
-    private val binding = _binding!!
     private val firstViewModel: FirstViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initData() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFirstBinding.inflate(inflater)
-        return binding.root
+    override fun initUI() {
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onResume() {
+    override fun initListener() {
         binding.firstButton.setOnClickListener {
             firstViewModel.countUp()
         }
+    }
 
+    override fun initObserver() {
         firstViewModel.test.observe(viewLifecycleOwner){
             binding.count.text = it.toString()
         }
-        super.onResume()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }
