@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.blue.remind_project.databinding.FragmentFirstBinding
 import com.blue.remind_project.viewModel.FirstViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class FirstFragment : BaseFragment<FragmentFirstBinding>(FragmentFirstBinding::inflate, "FirstFragment") {
 
     private val firstViewModel: FirstViewModel by viewModels()
