@@ -2,33 +2,42 @@ package com.blue.remind_project
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.blue.remind_project.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 //    private val viewModel: MainViewModel by viewModels()
     private val viewModel: MainViewModel by lazy {
-    ViewModelProvider(this)[MainViewModel::class.java]
-}
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.button1.setOnClickListener {
+            setFragment(FirstFragment())
+        }
 
-//        viewModel.filteredData.observe(this){
-//            binding.test.text = it.toString()
-//        }
-        viewModel._test.observe(this){
-            binding.test.text = it.toString()
+        binding.button2.setOnClickListener {
+            setFragment(SecondFragment())
         }
-        binding.button.setOnClickListener {
-            viewModel.countUp()
-        }
+
         setContentView(binding.root)
     }
 
+    fun setFragment(fragment: Fragment){
+        supportFragmentManager.commit {
+            replace(R.id.frameLayout, fragment)
+            // 애니메이션과 전환이 올바르게 작동하도록 트랜잭션과 관련된 프래그먼트의 상태 변경을 최적화
+            setReorderingAllowed(true)
+            addToBackStack("")
+        }
+    }
 
 
     override fun onPause() {
