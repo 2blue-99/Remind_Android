@@ -1,4 +1,4 @@
-package com.blue.remind_project
+package com.blue.remind_project.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
